@@ -6,8 +6,9 @@
     <div class="col">
       <h1 class="mt-5">Test microservices</h1>
       <hr>
-      <a id="brokerBtn class=" btn btn-otuline-secondary" href="javascript:void(0);">Test Broker</a>
-      <a id="authBrokerBtn class=" btn btn-otuline-secondary" href="javascript:void(0);">Test Auth Broker</a>
+      <a id="brokerBtn" class="btn btn-otuline-secondary" href="javascript:void(0);">Test Broker</a>
+      <a id="authBrokerBtn" class="btn btn-otuline-secondary" href="javascript:void(0);">Test Auth Broker</a>
+      <a id="logBtn" class="btn btn-otuline-secondary" href="javascript:void(0);">Test Log</a>
 
       <div id="output" class="mt-5" style="outline: 1px solid silver; padding: 2em;">
         <span class="text-muted">Output shows here...</span>
@@ -35,11 +36,47 @@
 <script>
   const brokerBtn = document.getElementById("brokerBtn");
   const authBrokerBtn = document.getElementById("authBrokerBtn");
+  const logBtn = document.getElementById("logBtn");
   const outputDiv = document.getElementById("output");
   const sent = document.getElementById("payload");
   const received = document.getElementById("received");
 
-  brokerBtn.addEventListener("click", function () {
+  logBtn.addEventListener("click", function() {
+    const payload = {
+      action: "log",
+      log: {
+        name: "event",
+        data: "some kind of data",
+      },
+    };
+
+    const headers = new Headers();
+    headers.append("Content-Type", "application/json");
+
+    const body = {
+      method: "POST",
+      body: JSON.stringify(payload),
+      headers,
+    };
+
+    fetch("http:\/\/localhost:8090", body)
+      .then(response => response.json())
+      .then(data => {
+        sent.innerHTML = "empty post request";
+        received.innerHTML = JSON.stringify(data, undefined, 4);
+
+        if (data.error) {
+          console.log(data.message);
+        } else {
+          outputDiv.innerHTML += `<br/><strong>Response from broker service</strong>: ${data.message}`;
+        }
+      })
+      .catch(error => {
+        outputDiv.innerHTML += `<br/><br/>Error: ${error}`;
+      });
+  });
+
+  brokerBtn.addEventListener("click", function() {
     const body = {
       method: "POST",
     };
