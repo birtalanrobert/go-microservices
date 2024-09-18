@@ -1,4 +1,5 @@
 .DS_Store
 .env
 node_modules/
-/broker-service/borkerApp
+broker-service/borkerApp
+authentication-service/authApp
