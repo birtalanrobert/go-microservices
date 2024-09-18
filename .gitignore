@@ -1,10 +1,14 @@
 .DS_Store
 .env
 node_modules/
+
 db-data/mongo/*
 db-data/postgres/*
+db-data/rabbitmq/*
+
 front-end/frontApp
-broker-service/borkerApp
+broker-service/brokerApp
 authentication-service/authApp
 logger-service/loggerServiceApp
 mail-service/mailServiceApp
+listener-service/listenerApp
