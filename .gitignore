@@ -5,8 +5,11 @@ node_modules/
 db-data/mongo/*
 db-data/postgres/*
 db-data/rabbitmq/*
+caddy_config/*
+caddy_data/*
 
 front-end/frontApp
+front-end/frontEndApp
 broker-service/brokerApp
 authentication-service/authApp
 logger-service/loggerServiceApp
